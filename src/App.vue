@@ -3,7 +3,7 @@
     <!-- header部分 -->
    <mt-header fixed title="移动商城"></mt-header>
    <!-- 路由区域 -->
-	 <transition mode="out-in">
+	 <transition >
 	<router-view></router-view>
 	 
 	 </transition>
@@ -39,6 +39,7 @@ export default {
 <style lang='scss' scoped>
 .app-containter{
   padding-top: 40px;
+	padding-bottom: 50px;
 	overflow-x: hidden;
 }
 .v-enter{

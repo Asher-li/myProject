@@ -20,7 +20,12 @@ Vue.component(SwipeItem.name, SwipeItem);
 //mui组件
 import '../lib/mui/css/mui.min.css'
 import '../lib/mui/css/icons-extra.css'
-
+//全局过滤器修改时间
+//引入moment插件修改时间
+import moment from 'moment'
+Vue.filter('dataFormat',function(datastr,pattern="YYYY-MM-DD HH:mm:ss"){
+  return moment(datastr).format(pattern)
+})
 
 
 var vm=new Vue({
