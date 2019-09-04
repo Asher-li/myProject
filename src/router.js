@@ -1,15 +1,16 @@
 import VueRouter from 'vue-router'
-import HomeContainter from './components/tabbar/HomeContainter.vue'
-import MemberContainter from './components/tabbar/MemberContainter.vue'
-import SearchContainter from './components/tabbar/SearchContainter.vue'
-import ShopContainter from './components/tabbar/ShopContainter.vue'
+import HomeContainer from './components/tabbar/HomeContainer.vue'
+import MemberContainer from './components/tabbar/MemberContainer.vue'
+import SearchContainer from './components/tabbar/SearchContainer.vue'
+import ShopContainer from './components/tabbar/ShopContainer.vue'
 
 var router = new VueRouter({
   routes:[
-    {path:'/home',component:HomeContainter},
-    {path:'/member',component:MemberContainter},
-    {path:'/shopcar',component:ShopContainter},
-    {path:'/search',component:SearchContainter},
+    {path:'/',redirect:'/home'},
+    {path:'/home',component:HomeContainer},
+    {path:'/member',component:MemberContainer},
+    {path:'/shopcar',component:ShopContainer},
+    {path:'/search',component:SearchContainer},
   ],
   linkActiveClass:'mui-active'
 })
