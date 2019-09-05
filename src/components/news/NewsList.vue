@@ -2,7 +2,7 @@
   <div>
     <ul class="mui-table-view">
       <li class="mui-table-view-cell mui-media" v-for="item in NewsList" :key="item.id">
-        <a href="javascript:;">
+        <router-link :to="'/home/newsInfo/'+item.id">
           <img class="mui-media-object mui-pull-left" :src="item.img_url" />
           <div class="mui-media-body">
             <h1>{{item.title}}</h1>
@@ -11,7 +11,7 @@
               <span>点击：{{item.click}}次</span>
             </p>
           </div>
-        </a>
+        </router-link>
       </li>
     </ul>
   </div>
@@ -31,11 +31,11 @@ export default {
   methods: {
     getNewsList() {
       this.$http
-        .get("http://www.liulongbin.top:3005/api/getnewslist")
+        .get("api/getnewslist")
         .then(result => {
           if (result.body.status === 0) {
             this.NewsList = result.body.message;
-            // console.log(result.body);
+            console.log(result.body);
           } else {
             Toast("新闻列表加载失败");
           }

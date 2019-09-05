@@ -8,6 +8,8 @@ import router from './router.js'
 //vue-resource导入安装
 import VueResource from 'vue-resource'
 Vue.use(VueResource)
+Vue.http.options.root='http://www.liulongbin.top:3005'
+
 //引入vue
 import Vue from 'vue'
 import app from './App.vue'
@@ -17,6 +19,8 @@ Vue.component(Header.name, Header);
 import { Swipe, SwipeItem } from 'mint-ui';//首页轮播图
 Vue.component(Swipe.name, Swipe);
 Vue.component(SwipeItem.name, SwipeItem);
+import { Button } from 'mint-ui'//按钮
+Vue.component(Button.name, Button);
 //mui组件
 import '../lib/mui/css/mui.min.css'
 import '../lib/mui/css/icons-extra.css'

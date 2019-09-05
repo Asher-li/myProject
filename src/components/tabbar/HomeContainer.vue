@@ -64,7 +64,7 @@ export default {
   methods: {
     getLunbotu() {
       this.$http
-        .get("http://www.liulongbin.top:3005/api/getnewslist")
+        .get("api/getnewslist")
         .then(result => {
           if (result.body.status === 0) {
             this.lunbotuList = result.body.message;
