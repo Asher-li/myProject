@@ -8,21 +8,54 @@
     </textarea>
     <mt-button type="primary" size="large">发表评论</mt-button>
     <div class="cmt-list">
-      <div class="cmt-item">
+      <div class="cmt-item" v-for="(item,i) in comments" :key="i">
       <div class="cmt-title">
-        第1楼&nbsp;&nbsp;用户：匿名用户&nbsp;&nbsp;发表时间：20190202
+        <p>第{{i+1}}楼</p>
+        <p>用户：{{item.user_name}}</p>
+        <p>发表时间：{{item.add_time |dataFormat}}</p>
       </div>
       <div class="cmt-body">
-        啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
+        {{item.content==="undefined"?"该用户很懒，什么都没有评论":item.content}}
       </div>
       </div>
     </div>
-    <mt-button type="danger" size="large" plain>加载更多</mt-button>
+    <mt-button type="danger" size="large" plain @click="getMoreComments">加载更多</mt-button>
 
   </div>
 </template>
 <script>
+import { Toast } from "mint-ui";
+export default {
+  data(){
+    return{
+      pageIndex:1,
+      comments:[]
+    }
+  },
+  created(){
+    this.getNewsComment()
+  },
+  methods :{
+    getNewsComment(){
+      this.$http.get("api/getcomments/"+this.id+"?pageindex="+this.pageIndex).then(
+        result=>{
+        if(result.body.status===0){
+          //  console.log(result.body)
+          this.comments=this.comments.concat(result.body.message)
 
+        }else{
+            Toast("评论加载失败");
+
+        }
+      })
+    },
+    getMoreComments(){
+      this.pageIndex+1;
+       this.getNewsComment();
+    }
+  },
+  props:['id']
+}
 </script>
 <style lang="scss" scoped>
 .cmt-container{
@@ -40,8 +73,9 @@
       font-size: 13px;
       .cmt-title{
         line-height: 30px;
-
         background-color:#ebe5e5;
+        display:flex;
+        justify-content: space-between;
       }
       .cmt-body{
         font-size: 16px;

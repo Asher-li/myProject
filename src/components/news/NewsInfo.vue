@@ -2,14 +2,14 @@
   <div class="newsinfo-container">
    <h3 class="title">{{newsInfo.title}}</h3>
   <p class="subtitle">
-    <span>发表时间：{{newsInfo.add_time|dataFormat}}</span>
+    <span>发表时间：{{newsInfo.add_time | dataFormat}}</span>
     <span>点击：{{newsInfo.click}}次</span>
   </p>
 
   <hr>
   
   <div class="content" v-html="newsInfo.content"></div>
-  <comment-box></comment-box>
+  <comment-box :id="this.id"></comment-box>
  
   </div>
 </template>
@@ -31,7 +31,7 @@ export default {
       this.$http.get('api/getnew/'+this.id).then(result=>{
         if(result.body.status===0){
           this.newsInfo=result.body.message[0];
-            console.log(result.body);
+            // console.log(result.body);
 
         }else{
             Toast("新闻加载失败");
