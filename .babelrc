@@ -9,5 +9,8 @@
         "style": true
       }
     ]
+  ],
+  "ignore": [
+    "lib/mui/js/mui.min.js",
   ]
 }

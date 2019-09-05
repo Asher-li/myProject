@@ -2,7 +2,7 @@
   <div class="cmt-container">
     <h3>发表评论</h3>
     <hr>
-    <textarea placeholder="请输入要评价的内容，最多不要超过200字"
+    <textarea placeholder="请输入要评论的内容，最多不要超过200字"
     maxlength="120" v-model="msg">
 
     </textarea>

@@ -35,7 +35,7 @@ export default {
         .then(result => {
           if (result.body.status === 0) {
             this.NewsList = result.body.message;
-            console.log(result.body);
+            // console.log(result.body);
           } else {
             Toast("新闻列表加载失败");
           }
