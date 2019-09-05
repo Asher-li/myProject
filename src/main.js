@@ -9,7 +9,8 @@ import router from './router.js'
 import VueResource from 'vue-resource'
 Vue.use(VueResource)
 Vue.http.options.root='http://www.liulongbin.top:3005'
-
+//全局配置post请求表单数据格式组织形式
+Vue.http.options.emulateJSON=true;
 //引入vue
 import Vue from 'vue'
 import app from './App.vue'
