@@ -34,7 +34,9 @@ import moment from 'moment'
 Vue.filter('dataFormat',function(datastr,pattern="YYYY-MM-DD HH:mm:ss"){
   return moment(datastr).format(pattern)
 })
-
+//引入缩略图插件vue-preview
+import VuePreview from 'vue-preview'
+Vue.use(VuePreview)
 
 var vm=new Vue({
   el:'#app',

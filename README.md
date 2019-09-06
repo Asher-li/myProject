@@ -90,3 +90,19 @@
  2. 渲染图片数据
  3. 发现滑动条的数据会覆盖到移动商城头部，修改头部的层级
  4. 进行图片列表样式优化
+ ## 实现 图片详情中 缩略图的功能
+1. 使用 插件 vue-preview  缩略图插件
+2. 每个 图片数据对象中，必须有msrc, w 和 h 属性
+3. 需要手动添加样式 .thumbs {
+  /deep/ .my-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    figure {
+      width: 30%;
+      margin: 5px;
+      img {
+        width: 100%;
+      }
+    }
+  }}
+4.  
