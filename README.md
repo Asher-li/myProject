@@ -93,7 +93,8 @@
  ## 实现 图片详情中 缩略图的功能
 1. 使用 插件 vue-preview  缩略图插件
 2. 每个 图片数据对象中，必须有msrc, w 和 h 属性
-3. 需要手动添加样式 .thumbs {
+3. 需要手动添加样式:``` 
+  .thumbs {
   /deep/ .my-gallery {
     display: flex;
     flex-wrap: wrap;
@@ -105,4 +106,5 @@
       }
     }
   }}
+   ```
 ## 完成商品列表的结构和样式
