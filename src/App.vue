@@ -37,6 +37,9 @@ export default {
 };
 </script>  
 <style lang='scss' scoped>
+.mint-header{
+	z-index: 999;
+}
 .app-containter{
   padding-top: 40px;
 	padding-bottom: 50px;
