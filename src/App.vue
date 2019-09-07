@@ -1,7 +1,11 @@
 <template>
   <div class="app-containter">
     <!-- header部分 -->
-   <mt-header fixed title="移动商城"></mt-header>
+   <mt-header fixed title="移动商城">
+		 <span slot="left" @click="goBack" v-show="flag">
+       <mt-button icon="back">返回</mt-button>
+     </span>
+	 </mt-header>
    <!-- 路由区域 -->
 	 <transition >
 	<router-view></router-view>
@@ -32,7 +36,29 @@
 <script>
 
 export default {
-  
+	data(){
+		return{
+			flag:false
+		}
+	},
+  methods:{
+		goBack(){
+			this.$router.go(-1)
+		}
+	},
+	created(){
+		this.flag=this.$route.path==='/home'?false:true
+	},
+	watch:{
+		'$route.path':function(newVal){
+			if(newVal==="/home"){
+				this.flag=false;
+			}else{
+				this.flag=true;
+
+			}
+		}
+	}
   
 };
 </script>  
