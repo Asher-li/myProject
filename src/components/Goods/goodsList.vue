@@ -37,7 +37,7 @@ export default {
       this.$http.get('api/getgoods?pageindex='+this.pageIndex).then(result=>{
         if(result.body.status===0){
           this.goodslist=this.goodslist.concat(result.body.message);
-            console.log(result.body);
+            // console.log(result.body);
 
         }else{
             Toast("商品加载失败");
