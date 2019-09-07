@@ -1,53 +1,54 @@
 <template >
   <div class="goods-list">
-    <div class="goods-item">
-      <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1568385590&di=21b3913c36c1daa943cb64362fb2b7cd&imgtype=jpg&er=1&src=http%3A%2F%2Fi5.hexun.com%2F2017-10-28%2F191415124.jpg" alt="">
-      <h1 class="title">小米（Mi）小米Note 16G双网通版</h1>
+    <div class="goods-item" v-for="item in goodslist" :key="item.id">
+      <img :src="item.img_url" alt="图片丢失">
+      <h1 class="title">{{item.title}}</h1>
       <div class="info">
         <p class="price">
-          <span class="now">￥899</span>
-          <span class="old">￥999</span>
+          <span class="now">￥{{item.sell_price}}</span>
+          <span class="old">￥{{item.market_price}}</span>
         </p>
         <p class="sell">
           <span>热卖中</span>
-          <span>剩60件</span>
+          <span>剩{{item.stock_quantity}}件</span>
         </p>
       </div>
     </div>
- <div class="goods-item">
-      <img src="http://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/f515ab05232ed14ccd78ec67e024495a.png?thumb=1&w=160&h=110" alt="">
-      <h1 class="title">小米（Mi）小米Note 16G双网通版</h1>
-      <div class="info">
-        <p class="price">
-          <span class="now">￥899</span>
-          <span class="old">￥999</span>
-        </p>
-        <p class="sell">
-          <span>热卖中</span>
-          <span>剩60件</span>
-        </p>
-      </div>
-    </div>
- <div class="goods-item">
-      <img src="http://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/f515ab05232ed14ccd78ec67e024495a.png?thumb=1&w=160&h=110" alt="">
-      <h1 class="title">小米（Mi）小米Note 16G双网通版</h1>
-      <div class="info">
-        <p class="price">
-          <span class="now">￥899</span>
-          <span class="old">￥999</span>
-        </p>
-        <p class="sell">
-          <span>热卖中</span>
-          <span>剩60件</span>
-        </p>
-      </div>
-    </div>
+    <mt-button type="danger" size="large" plain @click="getMoreGoods">加载更多</mt-button>
 
-  </div>
+    </div>
 </template>
 <script>
+import { Toast } from "mint-ui";
+
 export default {
-  
+  data(){
+    return {
+      pageIndex:1,
+      goodslist:[]
+    }
+  },
+  created(){
+    this.getGoods()
+  },
+  methods: {
+    getGoods(){
+      this.$http.get('api/getgoods?pageindex='+this.pageIndex).then(result=>{
+        if(result.body.status===0){
+          this.goodslist=this.goodslist.concat(result.body.message);
+            console.log(result.body);
+
+        }else{
+            Toast("商品加载失败");
+
+        }
+      })
+    },
+    getMoreGoods(){
+      this.pageIndex++
+      this.getGoods();
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
