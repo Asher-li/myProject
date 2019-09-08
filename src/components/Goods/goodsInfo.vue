@@ -5,7 +5,7 @@
     @enter="Enter"
     @after-enter="afterEnter"
     >
-    <div class="ball" v-show="ballFlag"></div>
+    <div class="ball" v-show="ballFlag" ref="ball"></div>
     
     </transition>
     <div class="mui-card">
@@ -27,7 +27,7 @@
           </p>
           <p>
             购买数量：
-            <numberbox></numberbox>
+            <numberbox @counts="countsChenged" :max="goodsinfo.stock_quantity"></numberbox>
           </p>
           <p>
             <mt-button type="primary" size="small" >立即购买</mt-button>
@@ -62,7 +62,8 @@ export default {
       id: this.$route.params.id,
       lunbotuList: [],
       goodsinfo: {},
-      ballFlag:false
+      ballFlag:false,
+      purchaseQuantity:1
     };
   },
   created() {
@@ -108,13 +109,21 @@ export default {
     },
     Enter(el,done){
       el.offsetWidth
-      el.style.transform='translate(60px,450px)'
-      el.style.transition="all 1s cubic-bezier(.55,-0.14,1,.52)  "
+      const ballPosition=this.$refs.ball.getBoundingClientRect();
+      const NumberPosition=document.getElementById("ballNumber").getBoundingClientRect();
+      const xDist=NumberPosition.left-ballPosition.left;
+      const yDist=NumberPosition.top-ballPosition.top;
+      el.style.transform=`translate(${xDist}px,${yDist}px)`;
+      el.style.transition="all 0.5s cubic-bezier(.55,-0.14,1,.52)  "
       done()
     },
     afterEnter(el){
       
       this.ballFlag=!this.ballFlag
+    },
+    countsChenged(data){
+      this.purchaseQuantity=data,
+      console.log(this.purchaseQuantity)
     }
   },
 
