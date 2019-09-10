@@ -61,9 +61,9 @@ export default {
     return {
       id: this.$route.params.id,
       lunbotuList: [],
-      goodsinfo: {},
+      goodsinfo: {},//商品信息
       ballFlag:false,
-      purchaseQuantity:1
+      purchaseQuantity:1//用户选中的商品数量
     };
   },
   created() {
@@ -103,6 +103,14 @@ export default {
     },
     addToShopCar(){
       this.ballFlag=!this.ballFlag
+      var goodsinfo={
+        id:this.id,
+        count:this.purchaseQuantity,
+        price:this.goodsinfo.sell_price,
+        selected:true
+      }
+      //将goodsinfo数据通过vuex的方法传入vuex的car中
+      this.$store.commit('addToShoppingCart',goodsinfo)
     },
     beforeEnter(el){
       el.style.transform='translate(0,0)'
@@ -122,8 +130,8 @@ export default {
       this.ballFlag=!this.ballFlag
     },
     countsChenged(data){
-      this.purchaseQuantity=data,
-      console.log(this.purchaseQuantity)
+      this.purchaseQuantity=data
+      // console.log(this.purchaseQuantity)
     }
   },
 

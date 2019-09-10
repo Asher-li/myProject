@@ -14,6 +14,9 @@ Vue.http.options.emulateJSON=true;
 //引入vue
 import Vue from 'vue'
 import app from './App.vue'
+//引入vuex
+import Vuex from 'vuex'
+Vue.use(Vuex)
 //Mint-ui组件
 // import {Header} from 'mint-ui'//头部悬浮条
 // Vue.component(Header.name, Header);
@@ -36,10 +39,65 @@ Vue.filter('dataFormat',function(datastr,pattern="YYYY-MM-DD HH:mm:ss"){
 })
 //引入缩略图插件vue-preview
 import VuePreview from 'vue-preview'
-Vue.use(VuePreview)
 
+Vue.use(VuePreview)
+//初始化vuex
+//每次进入网站将本地数据取出来放入car
+var car=JSON.parse(localStorage.getItem('car')||'[]')
+const store = new Vuex.Store({
+  state: {
+    car:car
+  // { id:商品的id, count: 要购买的数量, price: 商品的单价，selected: false  }
+
+  },
+  mutations: {
+    addToShoppingCart(state,goodsinfo){
+      var flag=false
+      state.car.some(item=>{//如果car里面已经有该商品则数量加
+        if(item.id==goodsinfo.id){
+          item.count+=parseInt(goodsinfo.count)
+          flag=true
+          return true
+        }
+      })
+      if(flag===false){//car里面没有则加到car里面
+        state.car.push(goodsinfo)
+      }
+      //将car存储到本地 localStorage 中保存
+      localStorage.setItem('car',JSON.stringify(state.car))
+    },
+    //在购物车修改商品数量的更新
+    updateGoodsInfo(state,update){
+      state.car.some(item=>{
+        if(item.id==update.id){
+          item.count=parseInt(update.count)
+          return true
+        }
+      })
+      localStorage.setItem('car',JSON.stringify(state.car))
+
+    }
+  },
+  getters:{
+    getAllCounts(state){
+      var c=0
+      state.car.forEach(item=>{
+        c+=item.count
+      })
+      return c
+    },
+    getGoodsCount(state){
+      var o={}
+      state.car.forEach(item=>{
+        o[item.id]=item.count
+      })
+      return o
+    }
+  }
+})
 var vm=new Vue({
   el:'#app',
   render:c=>c(app),
-  router
+  router,
+  store
 })
